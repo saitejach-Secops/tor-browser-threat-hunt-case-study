@@ -164,8 +164,6 @@ Network telemetry further supports this assessment. A successful connection to `
 Taken together, the file, process, and network evidence confirms deliberate installation and active TOR usage on the endpoint.
 
 ---
-
----
 ## Indicators of Compromise
 
 - **Device Name:** `sai-md-threat-h`
@@ -179,7 +177,6 @@ Taken together, the file, process, and network evidence confirms deliberate inst
 - **Execution Path:** `C:\Users\eaglebyte_0001\Desktop\Tor Browser\Browser\firefox.exe`
 
 ---
----
 ## Detection Opportunities
 
 - Alert on execution of TOR installers from user download directories.
@@ -189,7 +186,6 @@ Taken together, the file, process, and network evidence confirms deliberate inst
 - Investigate systems where TOR-related file, process, and network events occur within the same activity window.
 
 ---
----
 ## Skills Demonstrated
 
 - Threat hunting using Microsoft Defender for Endpoint.
@@ -198,7 +194,6 @@ Taken together, the file, process, and network evidence confirms deliberate inst
 - Timeline reconstruction.
 - IOC identification.
 - Incident triage and containment support.
----
 ---
 
 ## Response Taken
