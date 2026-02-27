@@ -155,6 +155,51 @@ DeviceNetworkEvents
 The user `eaglebyte_0001` on endpoint `sai-md-threat-h` installed and used TOR Browser version `15.0.5`. The investigation showed TOR-related file activity, silent execution of the installer from the Downloads folder, launch of the browser through `firefox.exe`, and successful connection to the local TOR SOCKS proxy on port `9151`. Additional outbound connections over port `443` were also observed during the same session. A file named `tor-shopping-list.txt` was later created on the Desktop, showing user activity after the browser was launched. The full sequence took place within roughly 26 minutes and confirmed active TOR usage on the device.
 
 ---
+## Analyst Assessment
+
+The activity on `sai-md-threat-h` shows more than a simple file download. The telemetry confirms that the TOR Browser installer was executed with the `/s` parameter, which indicates a silent installation. Shortly after installation, `firefox.exe` launched from the TOR Browser directory and multiple `tor.exe` processes were created, showing that the browser was actively used rather than only installed.
+
+Network telemetry further supports this assessment. A successful connection to `127.0.0.1:9151` was recorded, which aligns with TOR local proxy communication, and additional outbound connections over port `443` were observed during the same session. The later creation of `tor-shopping-list.txt` on the Desktop suggests follow-on user activity after the browser was launched.
+
+Taken together, the file, process, and network evidence confirms deliberate installation and active TOR usage on the endpoint.
+
+---
+
+---
+## Indicators of Compromise
+
+- **Device Name:** `sai-md-threat-h`
+- **User Account:** `eaglebyte_0001`
+- **Installer File:** `tor-browser-windows-x86_64-portable-15.0.5.exe`
+- **SHA-256:** `15448e951583b624c3f8fdfa8bc55fa9b65e1bcafd474f3f2dfd5444e4178846`
+- **Processes Observed:** `firefox.exe`, `tor.exe`
+- **TOR Proxy Port:** `9151`
+- **User-Created File:** `tor-shopping-list.txt`
+- **Installation Path:** `C:\Users\eaglebyte_0001\Downloads\tor-browser-windows-x86_64-portable-15.0.5.exe`
+- **Execution Path:** `C:\Users\eaglebyte_0001\Desktop\Tor Browser\Browser\firefox.exe`
+
+---
+---
+## Detection Opportunities
+
+- Alert on execution of TOR installers from user download directories.
+- Alert on silent installation parameters such as `/s` when associated with browser or anonymisation tools.
+- Monitor for `firefox.exe` or `tor.exe` launching from non-standard user directories such as the Desktop.
+- Correlate TOR-related process execution with local proxy communication over port `9151`.
+- Investigate systems where TOR-related file, process, and network events occur within the same activity window.
+
+---
+---
+## Skills Demonstrated
+
+- Threat hunting using Microsoft Defender for Endpoint.
+- KQL query development.
+- File, process, and network telemetry analysis.
+- Timeline reconstruction.
+- IOC identification.
+- Incident triage and containment support.
+---
+---
 
 ## Response Taken
 
