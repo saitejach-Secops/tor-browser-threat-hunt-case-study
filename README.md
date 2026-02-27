@@ -6,11 +6,11 @@
 - Windows 10 Virtual Machines (Microsoft Azure)
 - EDR Platform: Microsoft Defender for Endpoint
 - Kusto Query Language (KQL)
-- Tor Browser
+- TOR Browser
 
 ## Scenario
 
-Management suspects that some employees may be using TOR browsers to bypass network security controls because recent network logs show unusual encrypted traffic patterns and connections to known TOR entry nodes. Additionally, there have been anonymous reports of employees discussing ways to access restricted sites during work hours. The goal is to detect any TOR usage and analyze related security incidents to mitigate potential risks. If any use of TOR is found, notify management..
+Management suspects that some employees may be using TOR browsers to bypass network security controls because recent network logs show unusual encrypted traffic patterns and connections to known TOR entry nodes. Additionally, there have been anonymous reports of employees discussing ways to access restricted sites during work hours. The goal is to detect any TOR usage and analyze related security incidents to mitigate potential risks. If any use of TOR is found, notify management.
 
 - [Scenario Creation](https://github.com/saitejach-Secops/tor-browser-threat-hunt-case-study/blob/main/threat-hunting-scenario-tor-event-creation.md)
 
@@ -108,7 +108,6 @@ DeviceNetworkEvents
 - **Timestamp:** `2026-02-08T16:59:31.437823Z`
 - **Event:** The first TOR-related file activity was detected on device `sai-md-threat-h` under user `eaglebyte_0001`.
 - **Action:** TOR-related file event detected.
-- **File Path:** `C:\Users\eaglebyte_0001\`
 
 ### 2. Process Execution - TOR Browser Installation
 
@@ -188,12 +187,12 @@ Taken together, the file, process, and network evidence confirms deliberate inst
 ---
 ## Skills Demonstrated
 
-- Threat hunting using Microsoft Defender for Endpoint.
-- KQL query development.
-- File, process, and network telemetry analysis.
-- Timeline reconstruction.
-- IOC identification.
-- Incident triage and containment support.
+- Threat hunting using Microsoft Defender for Endpoint
+- KQL query development
+- File, process, and network telemetry analysis
+- Timeline reconstruction
+- IOC identification
+- Incident triage and containment support
 ---
 
 ## Response Taken
