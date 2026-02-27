@@ -11,7 +11,7 @@
 
 ## Scenario
 
-Management suspects that some employees may be using TOR browsers to bypass network security controls because unusual encrypted traffic patterns were observed in network telemetry. The goal of this hunt was to determine whether TOR usage took place on the endpoint `sai-md-threat-h`, identify the related activity, and escalate if confirmed.
+Management suspects that some employees may be using TOR browsers to bypass network security controls because recent network logs show unusual encrypted traffic patterns and connections to known TOR entry nodes. Additionally, there have been anonymous reports of employees discussing ways to access restricted sites during work hours. The goal is to detect any TOR usage and analyze related security incidents to mitigate potential risks. If any use of TOR is found, notify management..
 
 ### High-Level TOR-Related IoC Discovery Plan
 
@@ -31,7 +31,7 @@ Searched for any file that had the string "tor" in it and found TOR-related file
 
 ```kql
 DeviceFileEvents
-| where DeviceName == "sai-md-threat-h"
+| where  DeviceName == "sai-md-threat-h"
 | where InitiatingProcessAccountName == "eaglebyte_0001"
 | where Timestamp >= datetime(2026-02-08T16:59:31.437823Z)
 | where FileName contains "tor"
@@ -39,7 +39,7 @@ DeviceFileEvents
 | project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256, account=InitiatingProcessAccountName
 ```
 
-<img width="1212" alt="image" src="ADD-YOUR-SCREENSHOT-HERE">
+<img width="1470" height="457" alt="image 1" src="https://github.com/user-attachments/assets/0fe6f600-71d8-4f50-8fa9-fa75f3479c6f" />
 
 ---
 
@@ -51,12 +51,13 @@ Searched for any `ProcessCommandLine` that contained the string `tor-browser-win
 
 ```kql
 DeviceProcessEvents
-| where DeviceName == "sai-md-threat-h"
+| where  DeviceName == "sai-md-threat-h"
 | where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-15.0.5.exe"
-| project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine, AccountName
-```
+| project Timestamp, DeviceName, ActionType,FileName,FolderPath,SHA256,ProcessCommandLine,AccountName
 
-<img width="1212" alt="image" src="ADD-YOUR-SCREENSHOT-HERE">
+```
+<img width="1878" height="202" alt="image 2" src="https://github.com/user-attachments/assets/d440e205-eaf7-4e82-a048-84153af6dc2f" />
+
 
 ---
 
@@ -70,11 +71,12 @@ Searched for any indication that user `eaglebyte_0001` actually opened the TOR b
 DeviceProcessEvents
 | where DeviceName == "sai-md-threat-h"
 | where FileName has_any ("tor.exe","firefox.exe","tor-browser.exe")
-| project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256, ProcessCommandLine, AccountName
+| project Timestamp, DeviceName, ActionType,FileName,FolderPath,SHA256,ProcessCommandLine,AccountName
 | order by Timestamp desc
 ```
 
-<img width="1212" alt="image" src="ADD-YOUR-SCREENSHOT-HERE">
+<img width="1873" height="732" alt="image 3" src="https://github.com/user-attachments/assets/56416b47-c2bb-4d85-8b41-1953a760f3c7" />
+
 
 ---
 
@@ -90,11 +92,11 @@ DeviceNetworkEvents
 | where InitiatingProcessAccountName != "system"
 | where InitiatingProcessFileName in ("tor.exe","firefox.exe")
 | where RemotePort in ("9001","9030","9040","9050","9051","9150","9151","80","443")
-| project Timestamp, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessAccountName, InitiatingProcessFileName, InitiatingProcessFolderPath
+| project Timestamp,ActionType,RemoteIP,RemotePort,RemoteUrl,InitiatingProcessAccountName,InitiatingProcessFileName,InitiatingProcessFolderPath
 | order by Timestamp desc
-```
 
-<img width="1212" alt="image" src="ADD-YOUR-SCREENSHOT-HERE">
+```
+<img width="1662" height="515" alt="image 4" src="https://github.com/user-attachments/assets/a19e7228-fa1a-4fdb-ad08-80256e90f6c0" />
 
 ---
 
