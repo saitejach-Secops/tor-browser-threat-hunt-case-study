@@ -2,7 +2,7 @@
 
 # Threat Hunt Report: Unauthorized TOR Usage
 
-## Platforms and Languages Leveraged
+## Platforms and Languages Used
 - Windows 10 Virtual Machines (Microsoft Azure)
 - EDR Platform: Microsoft Defender for Endpoint
 - Kusto Query Language (KQL)
